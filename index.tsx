@@ -138,7 +138,6 @@ const TeamSection = () => {
       name: 'Leandro Marques (Lê)',
       role: 'Coordenador de Marketing',
       image: 'https://metarh.com.br/wp-content/uploads/2025/03/Le.jpg',
-      position: 'object-[center_12%]',
       bio: (
         <>
           <strong>Publicitário de formação</strong> e apaixonado por comunicação, Leandro faz parte do time da <strong>METARH desde 2019</strong>.<br /><br />
@@ -153,7 +152,6 @@ const TeamSection = () => {
       name: 'Rodrigo Aquino',
       role: 'Analista de Marketing Pleno',
       image: 'https://metarh.com.br/wp-content/uploads/2025/03/Ro-scaled.jpg',
-      position: 'object-[center_12%]',
       bio: (
         <>
           <strong>Designer Gráfico por formação</strong>, Rodrigo possui experiência em diferentes segmentos, como <strong>Fintech, BPO e Indústria Gráfica</strong>, atuando na criação de <strong>soluções visuais e estratégicas</strong> orientadas a negócio.<br /><br />
@@ -168,7 +166,6 @@ const TeamSection = () => {
       name: 'Caroline Amorim Moraes',
       role: 'Analista de Marketing Jr',
       image: 'https://metarh.com.br/wp-content/uploads/2025/11/Carol.png',
-      position: 'object-[center_0%]', // Ajustado para nivelar a cabeça com o Rodrigo
       bio: (
         <>
           <strong>Publicitária de formação</strong>, com experiência em <strong>Marketing B2B/B2C, Branding e Comunicação</strong>, Caroline tem vivência em gestão de redes sociais, produção de conteúdo, planejamento de campanhas digitais, análise de desempenho e desenvolvimento de estratégias de comunicação.<br /><br />
@@ -187,18 +184,18 @@ const TeamSection = () => {
         <h2 className="text-4xl font-black text-meta-purple-deep mb-4 uppercase tracking-tighter">Time de Marketing</h2>
         <p className="text-slate-500 text-lg font-medium leading-relaxed">Conheça os profissionais que cuidam da voz e da imagem da METARH no mercado.</p>
       </header>
-      <div className="grid lg:grid-cols-3 gap-8">
+      <div className="grid lg:grid-cols-3 gap-8 items-stretch">
         {team.map((member, i) => (
-          <div key={i} className="bg-white rounded-[40px] overflow-hidden shadow-sm border border-slate-100 group hover:shadow-2xl transition-all duration-500 flex flex-col">
-            <div className="h-80 overflow-hidden relative">
-              <img src={member.image} alt={member.name} className={`w-full h-full object-cover ${member.position} group-hover:scale-105 transition-transform duration-700`} />
+          <div key={i} className="bg-white rounded-[40px] overflow-hidden shadow-sm border border-slate-100 group hover:shadow-2xl transition-all duration-500 flex flex-col h-full">
+            <div className="h-80 overflow-hidden relative flex-shrink-0">
+              <img src={member.image} alt={member.name} className="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-700" />
               <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"></div>
             </div>
-            <div className="p-8 -mt-12 bg-white rounded-t-[40px] relative flex-1 flex flex-col">
+            <div className="p-8 -mt-12 bg-white rounded-t-[40px] relative flex-1 flex flex-col z-10">
               <h4 className="text-2xl font-black text-slate-900 mb-1">{member.name}</h4>
               <p className="text-meta-purple-base font-bold text-xs uppercase tracking-widest mb-6">{member.role}</p>
               <div className="text-sm text-slate-500 mb-8 leading-relaxed font-medium flex-1">{member.bio}</div>
-              <div className="flex gap-3 pt-6 border-t border-slate-50">
+              <div className="flex gap-3 pt-6 border-t border-slate-50 mt-auto">
                 <a href={`mailto:${member.mail}`} className="flex-1 bg-slate-50 py-3 rounded-xl text-slate-400 hover:text-meta-purple-base hover:bg-meta-purple-base/5 flex items-center justify-center transition-all">
                   <Mail size={20} />
                 </a>
