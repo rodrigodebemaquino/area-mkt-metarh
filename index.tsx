@@ -8,7 +8,7 @@ import {
   Search, Layout, Youtube, Facebook, Instagram,
   Mic, Briefcase, BarChart3, Globe, Zap, Megaphone,
   ArrowRight, Palette, PenTool, Type, Image as ImageIcon,
-  Video, FileSignature, Monitor, Eye, Settings, Lock
+  Video, FileSignature, Monitor, Eye
 } from 'lucide-react';
 
 // --- Constants & Types ---
@@ -59,8 +59,8 @@ const Sidebar = ({ current, set }: { current: Section, set: (s: Section) => void
             key={item.id}
             onClick={() => set(item.id as Section)}
             className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl transition-all font-medium text-sm ${current === item.id
-                ? 'bg-white text-meta-purple-deep shadow-lg'
-                : 'text-white/70 hover:bg-white/10 hover:text-white'
+              ? 'bg-white text-meta-purple-deep shadow-lg'
+              : 'text-white/70 hover:bg-white/10 hover:text-white'
               }`}
           >
             <item.icon size={18} />
