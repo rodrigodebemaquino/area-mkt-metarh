@@ -69,7 +69,7 @@ const Sidebar = ({ current, set }: { current: Section, set: (s: Section) => void
         ))}
       </nav>
       <div className="p-4 border-t border-white/10 space-y-2">
-        <p className="px-4 text-[10px] text-white/20 uppercase tracking-widest font-bold">© 2025 METARH</p>
+        <p className="px-4 text-[10px] text-white/20 uppercase tracking-widest font-bold">© METARH</p>
       </div>
     </aside>
   );
@@ -138,6 +138,7 @@ const TeamSection = () => {
       name: 'Leandro Marques (Lê)',
       role: 'Coordenador de Marketing',
       image: 'https://metarh.com.br/wp-content/uploads/2025/03/Le.jpg',
+      position: 'object-[center_10%]',
       bio: (
         <>
           <strong>Publicitário de formação</strong> e apaixonado por comunicação, Leandro faz parte do time da <strong>METARH desde 2019</strong>.<br /><br />
@@ -145,13 +146,14 @@ const TeamSection = () => {
           Casado e pai do Pietro, Leandro é fã de <strong>cultura pop, animes, música</strong> e não dispensa um bom pedal para recarregar as energias.
         </>
       ),
-      mail: 'leandromarques@metarh.com.br',
+      mail: 'https://mail.google.com/mail/?view=cm&fs=1&to=leandromarques@metarh.com.br',
       linkedin: 'https://linkedin.com/in/leandro-marques-almeida'
     },
     {
       name: 'Rodrigo Aquino',
       role: 'Analista de Marketing Pleno',
       image: 'https://metarh.com.br/wp-content/uploads/2025/03/Ro-scaled.jpg',
+      position: 'object-[center_25%]',
       bio: (
         <>
           <strong>Designer Gráfico por formação</strong>, Rodrigo possui experiência em diferentes segmentos, como <strong>Fintech, BPO e Indústria Gráfica</strong>, atuando na criação de <strong>soluções visuais e estratégicas</strong> orientadas a negócio.<br /><br />
@@ -159,13 +161,14 @@ const TeamSection = () => {
           Pai da Maria Clara, Rodrigo é apaixonado por <strong>futebol e chimarrão</strong>, e acredita no <strong>design como ferramenta estratégica</strong> para gerar valor, clareza e impacto nas marcas.
         </>
       ),
-      mail: 'rodrigoaquino@metarh.com.br',
+      mail: 'https://mail.google.com/mail/?view=cm&fs=1&to=rodrigoaquino@metarh.com.br',
       linkedin: 'https://linkedin.com/in/rodrigo-de-bem-aquino'
     },
     {
       name: 'Caroline Amorim Moraes',
       role: 'Analista de Marketing Jr',
       image: 'https://metarh.com.br/wp-content/uploads/2025/11/Carol.png',
+      position: 'object-[center_40%]',
       bio: (
         <>
           <strong>Publicitária de formação</strong>, com experiência em <strong>Marketing B2B/B2C, Branding e Comunicação</strong>, Caroline tem vivência em gestão de redes sociais, produção de conteúdo, planejamento de campanhas digitais, análise de desempenho e desenvolvimento de estratégias de comunicação.<br /><br />
@@ -173,7 +176,7 @@ const TeamSection = () => {
           Apaixonada por <strong>livros, séries, música e viagens</strong>, Caroline valoriza os momentos de qualidade ao lado das pessoas que ama.
         </>
       ),
-      mail: 'carolineamorim@metarh.com.br',
+      mail: 'https://mail.google.com/mail/?view=cm&fs=1&to=carolineamorim@metarh.com.br',
       linkedin: 'https://linkedin.com/in/caroline-amorim-moraes-904931226'
     },
   ];
@@ -188,7 +191,7 @@ const TeamSection = () => {
         {team.map((member, i) => (
           <div key={i} className="bg-white rounded-[40px] overflow-hidden shadow-sm border border-slate-100 group hover:shadow-2xl transition-all duration-500 flex flex-col h-full">
             <div className="h-80 overflow-hidden relative flex-shrink-0">
-              <img src={member.image} alt={member.name} className="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-700" />
+              <img src={member.image} alt={member.name} className={`w-full h-full object-cover ${member.position} group-hover:scale-105 transition-transform duration-700`} />
               <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"></div>
             </div>
             <div className="p-8 -mt-12 bg-white rounded-t-[40px] relative flex-1 flex flex-col z-10">
@@ -196,7 +199,7 @@ const TeamSection = () => {
               <p className="text-meta-purple-base font-bold text-xs uppercase tracking-widest mb-6">{member.role}</p>
               <div className="text-sm text-slate-500 mb-8 leading-relaxed font-medium flex-1">{member.bio}</div>
               <div className="flex gap-3 pt-6 border-t border-slate-50 mt-auto">
-                <a href={`mailto:${member.mail}`} className="flex-1 bg-slate-50 py-3 rounded-xl text-slate-400 hover:text-meta-purple-base hover:bg-meta-purple-base/5 flex items-center justify-center transition-all">
+                <a href={member.mail} target="_blank" className="flex-1 bg-slate-50 py-3 rounded-xl text-slate-400 hover:text-meta-purple-base hover:bg-meta-purple-base/5 flex items-center justify-center transition-all">
                   <Mail size={20} />
                 </a>
                 <a href={member.linkedin} target="_blank" className="flex-1 bg-slate-50 py-3 rounded-xl text-slate-400 hover:text-blue-600 hover:bg-blue-50 flex items-center justify-center transition-all">
@@ -212,7 +215,9 @@ const TeamSection = () => {
 };
 
 const DownloadsSection = () => {
-  const items = [
+  const [searchTerm, setSearchTerm] = useState('');
+
+  const allItems = [
     {
       title: 'Logos METARH',
       format: 'PNG/SVG',
@@ -232,10 +237,10 @@ const DownloadsSection = () => {
       image: 'https://metarh.com.br/wp-content/uploads/2026/01/Tipografia-Barlow.png'
     },
     {
-      title: 'Modelos de Apresentação',
+      title: 'Template de apresentação 2026',
       format: 'PPTX',
       category: 'Templates',
-      url: 'https://drive.google.com/file/d/1EdDu2G3rSqpRjK7CJ8rGu-R0enOA_0jo/view',
+      url: 'https://docs.google.com/presentation/d/1s317tP9pqK0mUnd5aCgdwWso7s-DlChS/edit?usp=drive_link&ouid=106632360494062962048&rtpof=true&sd=true',
       icon: Layout,
       color: 'border-[#aa3ffe]',
       image: 'https://metarh.com.br/wp-content/uploads/2026/01/Slides-METARH.png'
@@ -297,13 +302,25 @@ const DownloadsSection = () => {
     },
   ];
 
+  const items = allItems.filter(item =>
+    item.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    item.category.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    item.format.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
   return (
     <div className="space-y-10 pb-12">
       <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
         <h2 className="text-4xl font-black text-meta-purple-deep uppercase tracking-tighter">Recursos Oficiais</h2>
         <div className="relative">
           <Search size={18} className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400" />
-          <input type="text" placeholder="Busca de recursos..." className="pl-12 pr-6 py-3 bg-white rounded-full border border-slate-100 shadow-sm text-sm focus:outline-none focus:ring-4 focus:ring-meta-purple-base/10 w-72 transition-all" />
+          <input
+            type="text"
+            placeholder="Busca de recursos..."
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+            className="pl-12 pr-6 py-3 bg-white rounded-full border border-slate-100 shadow-sm text-sm focus:outline-none focus:ring-4 focus:ring-meta-purple-base/10 w-72 transition-all"
+          />
         </div>
       </div>
       <p className="text-slate-500 text-lg font-medium leading-relaxed max-w-5xl">
@@ -337,6 +354,11 @@ const DownloadsSection = () => {
             </a>
           </div>
         ))}
+        {items.length === 0 && (
+          <div className="col-span-full py-12 text-center text-slate-400 font-medium">
+            Nenhum recurso encontrado para "{searchTerm}".
+          </div>
+        )}
       </div>
     </div>
   );
@@ -620,7 +642,7 @@ const App = () => {
         <footer className="max-w-7xl mx-auto w-full mt-20 pt-8 border-t border-slate-100 pb-12">
           <div className="flex justify-between items-center opacity-40">
             <div className="font-extrabold text-xl tracking-tighter text-meta-purple-deep">METARH <span className="font-light">MARKETING</span></div>
-            <div className="text-xs font-bold uppercase tracking-widest">Portal Oficial do Time © 2025</div>
+            <div className="text-xs font-bold uppercase tracking-widest">Portal Oficial do Time</div>
           </div>
         </footer>
       </main>
