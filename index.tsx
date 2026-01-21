@@ -86,7 +86,7 @@ const HomeSection = ({ set }: { set: (s: Section) => void }) => (
           <span className="text-meta-pink">Marketing</span>
           <span>METARH</span>
         </h1>
-        <p className="text-xl text-white/90 mt-8 mb-10 leading-relaxed font-medium">
+        <p className="text-xl text-white/90 mt-8 mb-10 leading-relaxed font-medium max-w-2xl">
           Somos mais do que um time de Marketing. Somos os guardiões da marca METARH e da nossa posição no mercado de RH. Nosso trabalho é conectar, atrair e fortalecer relacionamentos estratégicos, sempre com criatividade e propósito.
         </p>
         <div className="flex flex-wrap gap-4">
@@ -214,7 +214,7 @@ const TeamSection = () => {
   );
 };
 
-const DownloadsSection = () => {
+const DownloadsSection = ({ showToast }: { showToast: () => void }) => {
   const [searchTerm, setSearchTerm] = useState('');
 
   const allItems = [
@@ -271,7 +271,7 @@ const DownloadsSection = () => {
       url: 'https://drive.google.com/drive/folders/1D9W_4Y596hgELDgytHhSBLNeHXqM_hyE?usp=drive_link',
       icon: ImageIcon,
       color: 'border-[#c529ff]',
-      image: 'https://images.unsplash.com/photo-1542038784456-1ea8e935640e?auto=format&fit=crop&q=80&w=800'
+      image: 'https://metarh.com.br/wp-content/uploads/2026/01/Vintrine-Banco-de-Imagens.png'
     },
     {
       title: 'Fundos de Reunião',
@@ -301,6 +301,20 @@ const DownloadsSection = () => {
       image: 'https://images.unsplash.com/photo-1521737711867-e3b97375f902?auto=format&fit=crop&q=80&w=800'
     },
   ];
+
+  const handleDownload = (e: React.MouseEvent, item: typeof allItems[0]) => {
+    if (item.title === 'Template de apresentação 2026') {
+      e.preventDefault();
+      const link = document.createElement('a');
+      link.href = 'https://docs.google.com/presentation/d/1s317tP9pqK0mUnd5aCgdwWso7s-DlChS/export/pptx';
+      link.download = 'Template_Apresentacao_2026.pptx';
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+
+      showToast();
+    }
+  };
 
   const items = allItems.filter(item =>
     item.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -333,7 +347,12 @@ const DownloadsSection = () => {
             className={`group bg-white rounded-[40px] border-b-4 ${item.color} shadow-sm transition-[box-shadow,transform] duration-500 relative flex flex-col hover:shadow-2xl overflow-hidden hover:-translate-y-1 will-change-transform`}
             style={{ isolation: 'isolate', backfaceVisibility: 'hidden', transform: 'translateZ(0)' }}
           >
-            <a href={item.url} target="_blank" className="block h-full">
+            <a
+              href={item.url}
+              target="_blank"
+              className="block h-full"
+              onClick={(e) => handleDownload(e, item)}
+            >
               <div className="h-32 relative overflow-hidden rounded-t-[40px]">
                 <img src={item.image} alt={item.title} className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700 opacity-60 group-hover:opacity-100" />
                 <div className="absolute inset-0 bg-gradient-to-t from-white to-transparent"></div>
@@ -348,7 +367,7 @@ const DownloadsSection = () => {
                   <p className="text-xs text-slate-400 font-medium">{item.format}</p>
                 </div>
                 <div className="w-10 h-10 bg-slate-50 text-slate-300 rounded-xl flex items-center justify-center group-hover:bg-meta-purple-deep group-hover:text-white transition-all flex-shrink-0 ml-4">
-                  {item.external ? <ExternalLink size={18} /> : <Download size={18} />}
+                  {item.title === 'Template de apresentação 2026' ? <Download size={18} /> : (item.external ? <ExternalLink size={18} /> : <Download size={18} />)}
                 </div>
               </div>
             </a>
@@ -617,13 +636,19 @@ const SocialSection = () => {
 
 const App = () => {
   const [current, setCurrent] = useState<Section>('home');
+  const [toastVisible, setToastVisible] = useState(false);
+
+  const showToast = () => {
+    setToastVisible(true);
+    setTimeout(() => setToastVisible(false), 4000);
+  };
 
   const renderContent = () => {
     switch (current) {
       case 'home': return <HomeSection set={setCurrent} />;
       case 'team': return <TeamSection />;
       case 'responsibilities': return <ResponsibilitiesSection />;
-      case 'downloads': return <DownloadsSection />;
+      case 'downloads': return <DownloadsSection showToast={showToast} />;
       case 'support': return <SupportSection />;
       case 'miv': return <MIVSection />;
       case 'rich': return <RichMaterialsSection />;
@@ -646,6 +671,19 @@ const App = () => {
           </div>
         </footer>
       </main>
+
+      {/* Toast Notification */}
+      <div className={`fixed bottom-8 right-8 z-[100] transition-all duration-500 transform ${toastVisible ? 'translate-y-0 opacity-100' : 'translate-y-20 opacity-0'}`}>
+        <div className="bg-white border-l-4 border-green-500 shadow-2xl rounded-xl p-6 flex items-start gap-4 max-w-sm">
+          <div className="bg-green-100 text-green-600 p-2 rounded-full">
+            <ShieldCheck size={24} />
+          </div>
+          <div>
+            <h4 className="font-bold text-slate-900 text-lg">Download concluído ✅</h4>
+            <p className="text-slate-500 text-sm mt-1">O arquivo foi baixado com sucesso. Verifique a pasta de downloads do seu computador.</p>
+          </div>
+        </div>
+      </div>
     </div>
   );
 };
