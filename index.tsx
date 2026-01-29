@@ -185,7 +185,15 @@ const TeamSection = () => {
     <div className="space-y-12 pb-12">
       <header className="max-w-2xl">
         <h2 className="text-4xl font-black text-meta-purple-deep mb-4 uppercase tracking-tighter">Time de Marketing</h2>
-        <p className="text-slate-500 text-lg font-medium leading-relaxed">Conheça os profissionais que cuidam da voz e da imagem da METARH no mercado.</p>
+        <p className="text-slate-500 text-lg font-medium leading-relaxed mb-8">Conheça os profissionais que cuidam da voz e da imagem da METARH no mercado.</p>
+        <a
+          href="https://mail.google.com/mail/?view=cm&fs=1&to=marketing@metarh.com.br"
+          target="_blank"
+          className="inline-flex items-center gap-3 bg-meta-purple-deep text-white px-8 py-4 rounded-full font-bold hover:scale-105 transition-transform shadow-lg"
+        >
+          <Mail size={20} />
+          Enviar e-mail para o time
+        </a>
       </header>
       <div className="grid lg:grid-cols-3 gap-8 items-stretch">
         {team.map((member, i) => (
